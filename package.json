@@ -1,0 +1,12 @@
+{
+  "name": "snake-game",
+  "version": "1.0.0",
+  "description": "Snake game with pure javascript",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ihsan Hepsen",
+  "license": "MIT"
+}
