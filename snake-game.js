@@ -4,10 +4,10 @@ import sleep from "./utils.js"
 
 class SnakeGame {
     constructor() {
-        this.width = 40
-        this.height = 20
-        this.snake = [/*{ x: 13, y: 10 }, { x: 14, y: 10 },*/ { x: 15, y: 10 }]
-        this.food = { x: 20, y: 10 }
+        this.width = 24
+        this.height = 10
+        this.snake = [/*{ x: 13, y: 10 }, { x: 14, y: 10 },*/ { x: 10, y: 5 }]
+        this.food = { x: 12, y: 5 }
         this.direction = Direction.RIGHT
         this.score = 0
         this.gameOver = false
@@ -48,6 +48,8 @@ class SnakeGame {
             if (key.name === 'q' || (key.ctrl && key.name === 'c')) {
                 console.log("\nQuiting game...\n")
                 process.exit(130)
+            } else if (key.name === 'p') {
+
             }
 
             switch (key.name) {
@@ -87,8 +89,27 @@ class SnakeGame {
                 break
         }
 
+        if (this.isCollision(head)) {
+            this.gameOver = true
+            console.log(`\n~ GAME OVER ~\nScore: ${this.score}\n`)
+            process.exit(0)
+        }
+
         this.snake.unshift(head)
         this.snake.pop()
+    }
+
+    isCollision(position) {
+        if (position === null || position === undefined) {
+            process.exit(1)
+        }
+        const { x, y } = position
+
+        if (x < 0 || y < 0 || x > this.width || y > this.height) {
+            return true
+        }
+
+        return this.snake.some(segment => segment.x === x && segment.y === y)
     }
 
     didEatFood() {
@@ -107,21 +128,12 @@ class SnakeGame {
         // generate food on a random part of the grid
         let newX = Math.floor(Math.random() * this.width)
         let newY = Math.floor(Math.random() * this.height)
-        console.log(`X: ${newX}, Y: ${newY}`)
+        // console.log(`X: ${newX}, Y: ${newY}`)
         this.food.x = newX
         this.food.y = newY
     }
 
-    isGameOver() {
-        // check if game is over:
-        // 1 - snake eating itself
-        // 2 - snake going outside the game board (hitting a wall)
-        // 3 - no more room left in the game board
-    }
-
-
     async play() {
-        // Play the game until it's not game over
         while (!this.gameOver) {
             this.moveSnake()
             this.drawBoard()
