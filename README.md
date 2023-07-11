@@ -6,5 +6,5 @@
 - Execute `node .` to play and enjoy!
 - Press 'Q' or ^C (CTRL + C or CMD + C) to quit game.
 
-## Screenshots & Gifs
-- Coming soon
+## Gameplay
+- ![Snake Game Gameplay gif](./snake-game-gameplay.gif)
